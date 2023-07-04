@@ -14,7 +14,7 @@ import { useParams } from "react-router";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "react-reveal/Fade";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Profile = () => {
   // ONCLICK SHOW OR HIDE
   const [show, setShow] = useState(false);
@@ -138,7 +138,7 @@ const Profile = () => {
       const { body } = resp;
       setPost(body);
       resp.json().then((resp) => {
-        console.log(resp);
+        // console.log(resp);
         setUserpost(resp);
       });
     });
@@ -168,6 +168,9 @@ const Profile = () => {
   useEffect(() => {
     getUser();
   }, []);
+
+  // console.log(user_profile_pic[0])
+
 
   // useEffect(() => {
   //   const requestOptions = {
@@ -375,6 +378,7 @@ const Profile = () => {
     fetch("http://35.90.113.221/user_social_update/", requestOptions)
       .then((resp) => {
         if (resp) {
+          console.log(resp)
           GetSocial();
           stateupdate();
           alert("Edited Successfully");
@@ -412,13 +416,13 @@ const Profile = () => {
     formData.append("images", selectedFile);
     formData.append("background_image", selectedFiles);
     formData.append("user", user_token.user_id);
-    // console.log(formData)
-    console.log(selectedFile);
-    console.log(selectedFiles);
+    console.log(formData)
+
 
     const requestOptions = {
       method: "PUT",
       headers: {
+        // "Content-Type":"multipart/form-data",
         Authorization: "Bearer " + token,
       },
       body: formData,
@@ -427,10 +431,9 @@ const Profile = () => {
     fetch("http://35.90.113.221/user_profile_pic_update/", requestOptions)
       // .then(detail => detail.json())
       .then((resp) => {
-        if (resp) {
+  
           console.log(resp);
           getUser();
-        }
       })
       .catch((error) => {
         console.error("ankit" + error);
@@ -475,9 +478,9 @@ const Profile = () => {
                 Logout
               </a>
               <h4 className="h4profile">Profile</h4>
-              <a href="#" className="dashboard">
+              <Link to={"/Blog"} className="dashboard">
                 Dashboard
-              </a>
+              </Link>
               <FiberManualRecordIcon className="dot1" />
               <a href="#" className="user">
                 User
@@ -507,6 +510,7 @@ const Profile = () => {
                     key={item.id}
                     className="profile2"
                     src={"http://35.90.113.221" + item.images}
+                    loading="lazy"
                   ></img>
                 ))}
                 <button
@@ -514,6 +518,7 @@ const Profile = () => {
                   type="button"
                   data-toggle="modal"
                   data-target="#picupdatemodel"
+                  
                 >
                   Edit
                   <ModeEditOutlineOutlinedIcon className="aboutediticon" />
@@ -623,19 +628,9 @@ const Profile = () => {
                 </div>
                 {/* ABOUT AND SOCIAL  */}
 
-                {/* THINKING AND POST */}
+                {/* /* THINKING AND POST */}
                 <div className="col-sm-8 " style={{ paddingRight: "6rem" }}>
-                  <div className="card card2">
-                    <div className="card-body">
-                      <input
-                        type="text"
-                        placeholder="Share what you are thinking here..."
-                      />
-                      <AddPhotoAlternateIcon className="addphoto" />
-                      <AttachFileIcon className=" attatch" />
-                      <button className="btn btn-success post">Post</button>
-                    </div>
-                  </div>
+               
 
                   {userpost.map((item) => (
                     <div key={item.id} className="card card4">
@@ -648,9 +643,6 @@ const Profile = () => {
                             }
                           />
                           <p className="card4ui">{item.tag_name}</p>
-                          {/* <p className="card4ui">{item.post_content}</p> */}
-                          {/* <p className="card4ui">{item.post_header}</p> */}
-                          {/* <p className="card4ui">{item.post_name}</p> */}
 
                           <p className="card4date">
                             Created Date :
@@ -658,23 +650,33 @@ const Profile = () => {
                               .toString()
                               .slice(0, 24)}
                           </p>
-                          {/* <p className="card4date">
-                            Updated Date :
-                            {new Date(item.update_date).toString().slice(0, 24)}
-                          </p> */}
+                          
                           <p className="card4p1">{item.post_name}</p>
                         </div>
                         <div className="imagewithlike">
-                          <img
-                            className="feed"
-                            src={"http://35.90.113.221" + item.images}
-                          />
+                          {item.images ? (
+                            <img
+                              className="feed"
+                              src={"http://35.90.113.221" + item.images}
+                            />
+                          ) : (
+                            <img
+                              src="https://24toolbox.com/assets/image/og/dummy-%C4%ABmage-generator-tool.jpg?ver=220114.01"
+                              className="feed"
+                            />
+                          )}
+
                           <div className="likescontainer">
                             <button
                               className="heartbutton"
                               onClick={() => likePost(item.id)}
                             >
-                              <i className="fa fa-heart proheart"></i>
+                              {/* <i className="fa fa-heart proheart"></i> */}
+                              <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO_QM1sWq2FVwcCxurpcBe9zQ79waYMJwSKJjRRJLHOQ&s"
+                                alt="Like Button"
+                                className="likeIcon"
+                              />
                             </button>
                             <p className="a36">{item.total_likes}</p>
 
@@ -1048,7 +1050,3 @@ const Profile = () => {
   );
 };
 export default Profile;
-
-{
-  /* <i className="fa fa-ellipsis-v"></i> */
-}

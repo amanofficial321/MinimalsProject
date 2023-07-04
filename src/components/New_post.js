@@ -5,7 +5,7 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const New_post = () => {
   var user_token = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(user_token?.user_id);
@@ -87,18 +87,22 @@ const New_post = () => {
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-sm-12 ">
+          <div className="col-sm-12 px-0">
             <Navbar />
           </div>
 
           <div className="col-sm-12 ">
             <h4 className="h4profile">Create a new post</h4>
             <a href="#" className="dashboard">
+            <Link to={'/Blog'} style={{textDecoration:'none',color:'black'}} >
               Dashboard
+              </Link>
             </a>
             <FiberManualRecordIcon className="dot1" />
             <a href="#" className="user">
+            <Link to={'/Blog'} style={{textDecoration:'none',color:'black'}} >
               Blog
+              </Link>
             </a>
             <FiberManualRecordIcon className="dot2" />
             <p className="ui">New Post</p>
@@ -150,7 +154,7 @@ const New_post = () => {
                       <b>Drop or select file</b>
                       <br />
                       <br />
-                      <p>
+                      {/* <p>
                         Drop files here or click{" "}
                         <span
                           style={{
@@ -161,7 +165,7 @@ const New_post = () => {
                           browse{" "}
                         </span>{" "}
                         through your machine
-                      </p>
+                      </p> */}
                       <img src="images\Screenshot (147).png" />
                     </label>
                   </div>
@@ -170,7 +174,8 @@ const New_post = () => {
 
               <div className="card publishcard">
                 <div className="card-body">
-                  <select className="dropdown" onChange={handlechange}>
+                  
+                  <select className="dropdwn" onChange={handlechange}>
                     <option>Select a blog</option>
                     {blogs.map((blog) => (
                       <option key={blog.id} value={blog.id}>

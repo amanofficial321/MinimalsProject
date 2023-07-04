@@ -243,7 +243,12 @@ const BlogopenAman = () => {
                     onClick={() => likePost(detail.id)}
                     className="blogopenheart"
                   >
-                    <i className="fa fa-heart"></i>
+                    {/* <i className="fa fa-heart"></i> */}
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO_QM1sWq2FVwcCxurpcBe9zQ79waYMJwSKJjRRJLHOQ&s"
+                      alt="Like Button"
+                      className="likeIcon"
+                    />
                   </button>
                   <p className="detailp10">{detail.total_likes}</p>
                   {detail.liked_by?.slice(-3).map((itemsss, i) => (
@@ -265,7 +270,10 @@ const BlogopenAman = () => {
                 <div
                   className="detailp8"
                   dangerouslySetInnerHTML={{ __html: detail.post_content }}
-                ></div>
+                  
+                >
+                  {/* <p>{detail.post_content}</p> */}
+                </div>
               </div>
               <hr />
 

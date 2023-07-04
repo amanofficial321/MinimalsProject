@@ -144,12 +144,16 @@
   position: relative;
   bottom: 22px;
   left: 35px;
+  width: 89%;
+  margin-bottom: 0;
 }
 
 .p4 {
   position: relative;
   bottom: 42px;
   left: 35px;
+  width: 89%;
+  margin-bottom: 0;
 }
 
 .p4icon {
@@ -161,6 +165,8 @@
   position: relative;
   bottom: 61px;
   left: 35px;
+  width: 89%;
+  margin-bottom: 0;
 }
 
 .p5icon {
@@ -172,6 +178,7 @@
   position: relative;
   bottom: 77px;
   left: 35px;
+  width: 89%;
 }
 
 .p6icon {
@@ -215,8 +222,9 @@
 }
 
 .linkedin {
-  height: 15px;
-  width: 15px;
+  height: 17px;
+  width: 17px;
+  /* margin-bottom: 10px; */
 }
 
 .p23 {
@@ -236,6 +244,7 @@
   position: relative;
   bottom: 20px;
   right: 2px;
+  /* margin-bottom: 10px; */
 }
 
 .p33 {
@@ -255,6 +264,7 @@
   right: 2px;
   position: relative;
   bottom: 44px;
+  /* margin-bottom: 10px; */
 }
 
 .p43 {
@@ -274,6 +284,7 @@
   position: relative;
   bottom: 68px;
   right: 2px;
+  /* margin-bottom: 10px; */
 }
 
 .p53 {
@@ -344,7 +355,7 @@
   /* float: right; */
   box-shadow: rgb(145 158 171 / 20%) 0px 0px 2px 0px,
     rgb(145 158 171 / 12%) 0px 12px 24px -4px;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .card4profile {
@@ -398,6 +409,10 @@
 }
 .commentsection {
   /* border: 2px solid black; */
+}
+.likeIcon {
+  height: 40px;
+  width: 50px;
 }
 
 .feed {
@@ -950,15 +965,15 @@
   }
 }
 
-@media (max-width: 1055px) {
+/* @media (max-width: 1055px) {
   .card1 {
     overflow: scroll;
-  }
+  } */
 
-  .card3 {
+  /* .card3 {
     overflow: scroll;
   }
-}
+} */
 
 @media (max-width: 800px) {
   .card2 {

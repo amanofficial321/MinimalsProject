@@ -1,42 +1,88 @@
 import "../css/Profilepic.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const Profilepic = () => {
   var user_token = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(user_token?.user_id);
   const [imgfile, setUploadimg] = useState("");
-  const [selectedFile, setSelectedfile] = useState(null);
-  const [selectedFiles, setSelectedfiles] = useState(null);
+  const [selectedFile, setSelectedfile] = useState("");
+  const [selectedFiles, setSelectedfiles] = useState("");
   const [imgfile1, setUploadimg1] = useState("");
 
-  const postUser = () => {
+  const navigate = useNavigate();
+
+  // const postUser = () => {
+  //   let token = user_token.access;
+
+  //   const formData = new FormData();
+
+  //   formData.append("images", selectedFile);
+  //   formData.append("background_image", selectedFiles);
+  //   formData.append("user", user_token.user_id);
+  //   console.log(formData);
+
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //       Authorization: "Bearer " + token,
+  //     },
+  //     body: formData,
+  //   };
+
+  //   fetch("http://35.90.113.221/user_profile_pic/", requestOptions)
+  //     .then((resp) => {
+  //       console.log("Profilepic Response ", resp);
+  //       alert("Profilepic Response");
+  //       navigate("/Blog");
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
+
+  const postUser = async () => {
     let token = user_token.access;
+    console.log(token, "token");
 
     const formData = new FormData();
 
     formData.append("images", selectedFile);
     formData.append("background_image", selectedFiles);
     formData.append("user", user_token.user_id);
-    // console.log(formData)
+    console.log(formData);
 
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-      body: formData,
-    };
-
-    fetch("http://35.90.113.221/user_profile_pic/", requestOptions)
-      .then((detail) => detail.json())
-      .then((resp) => {
-        if (resp) {
-          // console.log('item post ', resp)
+    try {
+      const response = await axios.post(
+        "http://35.90.113.221/user_profile_pic/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + token,
+          },
         }
-      })
-      .catch((error) => {
-        // console.error(error);
-      });
+      );
+      console.log(response);
+      if (response.data.images && response.data.background_image) {
+        alert("Both Images Uploaded Successfully");
+        navigate("/Blog");
+      } else if (response.data.images && !response.data.background_image) {
+        alert("Profile Picture Uploaded Successfully");
+        navigate("/Blog");
+      } else if (!response.data.images && response.data.background_image) {
+        alert("Background Picture Uploaded Successfully");
+        navigate("/Blog");
+      } else if (!response.data.images && !response.data.background_image) {
+        alert("No Images Uploaded");
+        navigate("/Blog");
+      }
+    } catch (error) {
+      console.log(error);
+      alert(error.request.responseText);
+    }
   };
 
   var onFileChange = (e) => {
@@ -93,15 +139,13 @@ const Profilepic = () => {
               </label>
             </div>
 
-            <Link to="/Blog">
-              <button
-                onClick={postUser}
-                type="submit"
-                className="btn-primary profilesubmit"
-              >
-                submit
-              </button>
-            </Link>
+            <button
+              onClick={postUser}
+              type="submit"
+              className="btn-primary profilesubmit"
+            >
+              submit
+            </button>
           </div>
         </div>
       </div>

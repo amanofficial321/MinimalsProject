@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../css/About_social2.css";
 import "../css/Login.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const About_social2 = () => {
+  const navigate = useNavigate();
   var user_token = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(user_token.user_id);
   const [linkedin, setLinkedin] = useState("");
@@ -28,7 +29,8 @@ const About_social2 = () => {
       .then((detail) => detail.json())
       .then((resp) => {
         if (resp) {
-          console.log("item post ", resp);
+          console.log("About_social2 ", resp);
+          navigate("/Profilepic");
         }
       })
       .catch((error) => {
@@ -83,15 +85,14 @@ const About_social2 = () => {
               value={facebook}
               onChange={(e) => setFacebook(e.target.value)}
             />
-            <Link to="/Profilepic">
-              <button
-                onClick={postUser}
-                type="submit"
-                className="btn aboutsubmit"
-              >
-                <b style={{ color: "white" }}>Submit</b>
-              </button>
-            </Link>
+
+            <button
+              onClick={postUser}
+              type="submit"
+              className="btn aboutsubmit"
+            >
+              <b style={{ color: "white" }}>Submit</b>
+            </button>
           </div>
         </div>
       </div>

@@ -93,12 +93,16 @@ const Blog = () => {
                   New Post
                 </button>
               </Link>
-              <SearchIcon className="blogsearchicon" />
+              {/* <div > */}
+              
               <input
                 className="searchpost"
                 type="Search"
                 placeholder="Search post..."
               ></input>
+              <SearchIcon className="blogsearchicon" />
+              {/* </div> */}
+              
               <select
                 className="blogselect"
                 value={selectedOption}

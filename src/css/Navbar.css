@@ -26,7 +26,7 @@
   border-radius: 20px;
   float: right;
   position: relative;
-  right: 20px;
+  right: 10px;
   bottom: 10px;
   /* border: 2px solid red; */
 }
@@ -35,4 +35,16 @@
   border: 2px solid red;
   height: 100px;
   width: 100px;
+}
+.navbar-background {
+  background-color: rgb(196, 196, 196);
+  padding-top: 18px;
+  height: 100%;
+}
+.dropdown {
+  width: 45px !important;
+  display: contents;
+}
+.z-ind{
+  z-index: 10000;
 }
